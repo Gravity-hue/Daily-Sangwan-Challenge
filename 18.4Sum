@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        vector<vector<int>>ans;
+        sort(nums.begin(),nums.end());
+
+        for(int i=0; i<nums.size(); i++){
+            if(i>0 && nums[i]==nums[i-1])continue;//optimisation 1, skip the i's duplicate(below for loop will be skiped and i++)
+            for(int j=i+1; j<nums.size();){
+                int p=j+1;
+                int q=nums.size()-1;
+
+                while(p<q){
+                    long long sum=(long long)nums[i]+(long long)nums[j]+(long long)nums[p]+(long long)nums[q];
+                    if(sum<target){
+                        p++;
+                    }else if(sum>target){
+                        q--;
+                    }else{
+                        ans.push_back({nums[i],nums[j],nums[p],nums[q]});
+                        p++;
+                        q--;
+                        while(p<q && nums[p]==nums[p-1])p++;//optimisation 3, skip the p's duplicate
+                    }
+                }
+                j++;
+                while(j<nums.size() && nums[j]==nums[j-1])j++;//optimisation 2, skip the j's duplicate
+            }
+        }
+        return ans;
+    }
+
+int main(){
+vector<int> sample={1,0,-1,0,-2,2};
+int sample_target=0;
+
+cout<<fourSum(sample, sample_target);
+return 0;}
