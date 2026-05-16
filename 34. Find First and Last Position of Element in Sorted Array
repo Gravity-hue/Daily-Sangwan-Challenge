@@ -1,0 +1,60 @@
+int firstOccurence(vector<int>& nums, int target){
+        int ansF=-1;//for first occuring idx
+        int st=0;
+        int end=nums.size()-1;
+
+        while(st<=end){
+        int mid=(st+end)/2;
+
+        if(nums[mid]==target){
+            ansF=mid;
+            end=mid-1; //left search as first idx will be always on left
+        }
+        else if(target>nums[mid]){
+            st=mid+1;//Right search
+        }
+        else if(target<nums[mid]){
+            end=mid-1;//left search
+        }
+        }
+        return ansF;
+
+        }
+/////////////////////////////////////////////////////////////////////////////////
+        int lastOccurence(vector<int>& nums, int target){
+        int ansL=-1;for last occuring idx
+        int st=0;
+        int end=nums.size()-1;
+
+        while(st<=end){
+        int mid=(st+end)/2;
+
+        if(nums[mid]==target){
+            ansL=mid;
+            st=mid+1; //Right search as last idx will be always on right
+        }
+        else if(target>nums[mid]){
+            st=mid+1;//Right search
+        }
+        else if(target<nums[mid]){
+            end=mid-1;//left search
+        }
+        }
+        return ansL;
+        
+        }
+//////////////////////////////////////////////////////////////////////////////////
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int findex= firstOccurence(nums, target);
+        int lindex= lastOccurence(nums, target);
+
+        return {findex,lindex};
+    }
+//////////////////////////////////////////////////////////////////////////////////
+int main(){
+vector<int> sample={5,7,7,8,8,10};
+int target=8;
+
+cout<<searchRange(sample,target);
+return 0;
+}
