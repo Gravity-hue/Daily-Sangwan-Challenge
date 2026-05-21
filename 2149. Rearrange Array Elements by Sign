@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> rearrangeArray(vector<int>& nums) {
+        int n=nums.size();
+        vector<int> ans(n,0);
+        int posIdx=0;//Even indexes in ans array for Positive ones
+        int negIdx=1;//Odd indexes in ans array for negative ones
+
+        for(int i=0; i<n; i++){
+            if(nums[i]>0){//posIdx
+                ans[posIdx]=nums[i];
+                posIdx+=2;
+            }else{//negIdx
+                ans[negIdx]=nums[i];
+                negIdx+=2;
+            }
+        }
+        return ans;
+  }
+
+int main(){
+    vector<int> sample={3,1,-2,-5,2,-4};
+    vector<int> ans=rearrangeArray(sample);
+    int n=sample.size();
+
+    for(int i=0; i<n; i++){
+        cout<<ans[i]<<" ";
+    }
+
+    return 0;
+}
