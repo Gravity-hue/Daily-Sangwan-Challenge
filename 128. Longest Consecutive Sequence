@@ -1,0 +1,34 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+
+//Function
+int longestConsecutive(vector<int>& nums) {
+    int n=nums.size();
+    if(n==0)return 0;
+    sort(nums.begin(), nums.end());
+
+    int maxL=1;
+    int localL=1;
+
+    for(int i=0; i<n-1; i++){
+        if(nums[i+1]-nums[i]==0)continue;//When repititive number come 
+        if(nums[i+1]-nums[i]==1){//Forming sequence
+            localL++;
+        }else{
+            localL=1;
+        }
+        maxL=max(maxL,localL);
+    }
+    return maxL;}
+
+
+//Test
+int main(){
+    vector<int> sample={100,102,100,101,101,4,3,2,3,2,1,1,1,2};
+    cout<<longestConsecutive(sample);
+
+    return 0;
+}
