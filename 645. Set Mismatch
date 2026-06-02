@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<int> findErrorNums(vector<int>& nums) {
+    int n=nums.size();
+    int repeating=-1;
+    int missing=-1;
+    long long sNatural=(1LL*n*(n+1))/2;//Sum of n natural no.
+    long long sSquare=(1LL*n*(n+1)*(2*n+1))/6;//Sum of square of n-natural no.
+
+    long long sLocal=0;
+    long long sLocalSquared=0;
+
+    for(int i=0; i<n; i++){
+        sLocal+=nums[i];
+        sLocalSquared+=(1LL*nums[i]*nums[i]);
+    }
+
+    long long val1=sLocal-sNatural;//Repeating-missing
+    long long val2=(sLocalSquared-sSquare)/val1;//Repeating+missing
+
+    repeating=(val2+val1)/2;
+    missing=(val2-val1)/2;
+
+    return {repeating, missing};
+    }
+};
