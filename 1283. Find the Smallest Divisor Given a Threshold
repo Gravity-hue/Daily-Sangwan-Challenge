@@ -1,0 +1,55 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+bool isDivisor(vector<int>&arr, int num, int thres){
+    int n=arr.size();
+    long long ans=0;
+
+    for(int i=0; i<n; i++){
+        ans=ans+(arr[i]+num-1)/num;
+    }
+
+    if(ans<=thres)return true;
+    
+    return false;
+}
+
+int findMax(vector<int>&arr){
+    int n=arr.size();
+    int maxx=arr[0];
+
+    for(int i=1; i<n; i++){
+        if(arr[i]>maxx)maxx=arr[i];
+    }
+
+    return maxx;
+}
+
+// bool numberIsPresent(vector<int>& nums,int num)
+
+int smallestDivisor(vector<int>& nums, int threshold) {
+    int low=1;
+    int high=findMax(nums);
+    int ans=-1;
+
+    while(low<=high){
+        int mid=low+(high-low)/2;
+
+        if(isDivisor(nums, mid, threshold)==true){
+            ans=mid;
+            high=mid-1;
+        }
+        else{
+            low=mid+1;
+        }
+    }
+    return ans;
+    }
+
+int main(){
+    vector<int>sample={44,22,33,11,1};
+    cout<<smallestDivisor(sample,5);
+
+    return 0;
+}
