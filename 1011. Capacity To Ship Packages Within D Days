@@ -1,0 +1,50 @@
+class Solution {
+public:
+
+bool isUnderLimit(vector<int>& nums, int num, int limit){
+    int day=1;
+    int capacity=0;
+    int n=nums.size();
+
+    for(int i=0; i<n; i++){
+        if(capacity+nums[i]<=num){
+            capacity+=nums[i];
+        }
+        else{
+            day++;
+            capacity=nums[i];
+        }
+    }
+
+    if(day<=limit)return true;
+    return false;
+}
+
+int arrSum(vector<int>& arr){
+    int n=arr.size();
+    long long sum=arr[0];
+
+    for(int i=1; i<n; i++){
+        sum+=arr[i];
+    }
+    return sum;
+}
+    int shipWithinDays(vector<int>& weights, int days) {
+        int n=weights.size();
+        int low=*max_element(weights.begin(), weights.end());
+        int high=arrSum(weights);
+        int ans=-1;
+
+        while(low<=high){
+            int mid=low+(high-low)/2;
+
+            if(isUnderLimit(weights, mid, days)==true){
+                ans=mid;
+                high=mid-1;
+            }
+            else
+            low=mid+1;
+        }
+        return ans;
+    }
+};
