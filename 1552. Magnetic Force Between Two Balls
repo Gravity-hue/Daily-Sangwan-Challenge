@@ -1,0 +1,42 @@
+class Solution {
+public:
+
+bool distanceIsPossible(vector<int>nums, int force, int balls){
+    int ballCount=1;
+    int lastBallPos=nums[0];
+    int n=nums.size();
+
+    for(int i=1; i<n; i++){
+        if(nums[i]-lastBallPos>=force){
+            lastBallPos=nums[i];
+            ballCount++;
+        }
+    }
+
+    if(ballCount>=balls)return true;
+    
+    return false;
+}
+
+    int maxDistance(vector<int>& position, int m) {
+        int n=position.size();
+        sort(position.begin(), position.end());
+        int low=1; //min force
+        int high=position[n-1]-position[0];//max force
+
+        int ans=-1;
+
+        while(low<=high){
+            int mid=low+(high-low)/2;
+
+            if(distanceIsPossible(position, mid, m)==true){
+                ans=mid;
+                low=mid+1;
+            }
+            else{
+                high=mid-1;
+            }
+        }
+        return ans;
+    }
+};
