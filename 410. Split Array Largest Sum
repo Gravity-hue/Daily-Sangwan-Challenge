@@ -1,0 +1,50 @@
+class Solution {
+public:
+
+int countValidSubarrays(vector<int>&arr, int maxSum){
+    int n=arr.size();
+    int subArrayCount=1;
+    int sum=arr[0];
+
+    for(int i=1; i<n; i++){
+        if(sum+arr[i]<=maxSum){
+            sum+=arr[i];
+        }
+        else{
+            sum=arr[i];
+            subArrayCount++;
+        }
+    }
+    return subArrayCount;
+}
+
+int arraySum(vector<int>&arr){
+    int n=arr.size();
+    int sum=arr[0];
+    for(int i=1; i<n; i++){
+        sum+=arr[i];
+    }
+    return sum;
+}
+    int splitArray(vector<int>& nums, int k) {
+        int low=*max_element(nums.begin(), nums.end());
+        int high=arraySum(nums);
+        int ans=-1;
+        int n=nums.size();
+
+        if(n<k)return ans;
+
+        while(low<=high){
+            int mid=low+(high-low)/2;
+
+            if(countValidSubarrays(nums,mid)<=k){
+                ans=mid;
+                high=mid-1;
+            }
+            else{
+                low=mid+1;
+            }
+        }
+        return ans;
+    }
+};
